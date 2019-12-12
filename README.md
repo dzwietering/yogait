@@ -14,7 +14,7 @@ The MAX model is deployed to a local server which performs inference and returns
 # URLs
 
 **Pattern Github Repo**
-* https://github.com/IBM/yogait
+* https://github.com/dzwietering/yogait
 
 **MAX Model Github Repo**
 * https://github.com/IBM/MAX-Human-Pose-Estimator
@@ -145,7 +145,7 @@ contains images you can use to test out the API, or you can use your own.
 
 You can also test it on the command line, for example:
 
-    curl -F "image=@path/to/pose.jpg" -X POST http://localhost:5000/model/predict
+    curl -F "file=@path/to/pose.jpg" -X POST http://localhost:5000/model/predict
 
 ```
 {
@@ -207,7 +207,7 @@ You can also test it on the command line, for example:
 
 Clone the Yogait repository locally by running the following command:
 ```bash
-git clone https://github.com/IBM/yogait
+git clone https://github.com/dzwietering/yogait
 ```
 
 Then change directory into the local repository
@@ -217,7 +217,7 @@ cd yogait
 
 #### 2. Installing dependencies
 
-The general recommendation for Python development is to use a virtual environment [(venv)](https://docs.python.org/3/tutorial/venv.html). To install and initialize a virtual environment, use the `venv` module on Python 3 (you install the virtualenv library for Python 2.7):
+The optional recommendation for Python development is to use a virtual environment [(venv)](https://docs.python.org/3/tutorial/venv.html). To install and initialize a virtual environment, use the `venv` module on Python 3 (you install the virtualenv library for Python 2.7). You can also skip this and continue to install into your current Python environment directly.
 
 ```bash
 # Create the virtual environment using Python. Use one of the two commands depending on your Python version.
@@ -254,20 +254,22 @@ node app.js
 ```
 You can then access the web app at: [`http://localhost:3000`](http://localhost:3000)
 
-The Human Pose Estimator endpoint must be available at `http://localhost:5000` for the web app to successfully start.
+The Human Pose Estimator endpoint must be available at `http://localhost:5000` for the web app to successfully start. Otherwise, use the IBM provided instance at `http://max-human-pose-estimator.max.us-south.containers.appdomain.cloud/model/predict` and edit the endpoint at line 270 in `public/js/main.js` accordingly.
 
 
 ### Running Local Python Script
 
 #### 1. Check out the python code
 
-All of the python scripts are located in the main folder.
+The python scripts are located in the main and `utils` folder.
 
 `helpers.py` and `data.py` contain helper functions for the rest of the code
   
 `train.py` retrains the SVM on the folders and images located in the `assets/images` folder
     
 `inference.py` runs a live inference demo that uses the deployed Docker image to estimate live poses
+
+If you don't have the local Docker image running you can edit line 7 of `utils/helpers.py` to refer to the web API similar to the edit in `main.js`.
 
 #### 2. Performing Live Inference
 
@@ -277,14 +279,14 @@ You then start the live inference demo by running:
 
 You can then view live pose estimation in a window and predictions from the SVM in the terminal.
 
-The Human Pose Estimator endpoint must be available at `http://localhost:5000` for the web app to successfully start.
+The Human Pose Estimator endpoint must be available as specified in `utils/helpers.py` for the web app to successfully start.
 
 
 #### 3. Retraining the SVM
 
 You can retrain the SVM on your own poses by adding images and folders to assets/images. Images of the same class must be in the same folder and must be .png, .jpeg, or .jpg filetypes.
   
-You can then retrain the SVM on the updated classes by running:
+You can then retrain the SVM on the updated classes by running from the main folder:
 
     python train.py
     
@@ -292,7 +294,7 @@ You can then retrain the SVM on the updated classes by running:
 
 #### 1. Run Jupyter Notebook
 
-Once the model server is running, you can see how to use it by walking through [the demo notebook](demo.ipynb). _Note_ the demo requires `jupyter`, `numpy`, `matplotlib`, `opencv-python`, `json`, and `requests`.
+Once the model server is running, you can see how to use it by walking through [the demo notebook](demo.ipynb). _Note_ the demo requires `jupyter`, `numpy`, `matplotlib`, `opencv-python`, `json`, and `requests`. You can install these using `pip`.
 
 Run the following command from the model repo base folder, in a new terminal window (leaving the model server running in the other terminal window):
 
