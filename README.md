@@ -269,7 +269,7 @@ The python scripts are located in the main and `utils` folder.
     
 `inference.py` runs a live inference demo that uses the deployed Docker image to estimate live poses
 
-If you don't have the local Docker image running you can edit line 7 of `utils/helpers.py` to refer to the web API similar to the edit in `main.js`.
+If you don't have the local Docker image running you can edit line 7 of `utils/helpers.py` to refer to the web API similar to the edit in `main.js`as specified in the previous section.
 
 #### 2. Performing Live Inference
 
